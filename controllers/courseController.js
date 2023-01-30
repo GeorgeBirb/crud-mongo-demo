@@ -1,17 +1,18 @@
 const Course = require('../models/courseModel');
 
 async function getCourses(req, res) {
-    try{
+    try {
         const courses = await Course.find().sort('name');
         res.send(courses);
-    }catch(ex){
+    } catch (ex) {
         console.log(ex.message);
-        res.status(400).send(ex.message);    }
+        res.status(400).send(ex.message);
+    }
 }
 
 async function createCourse(req, res) {
     try {
-        let course = new Course({ name: req.body.name, description: req.body.description });
+        let course = new Course({ name: req.body.name, description: req.body.description, photo: req.body.photo  });
         course = await course.save();
         console.log("The following object created : ", course);
         res.send(course);
@@ -23,7 +24,7 @@ async function createCourse(req, res) {
 
 async function updateCourse(req, res) {
     try {
-        const course = await Course.findByIdAndUpdate(req.params.id, { name: req.body.name, description: req.body.description },
+        const course = await Course.findByIdAndUpdate(req.params.id, { name: req.body.name, description: req.body.description, photo: req.body.photo  },
             { new: true });
         console.log("The following object updated : ", course);
         res.send(course);

@@ -1,12 +1,13 @@
 const User = require('../models/userModel');
 
 exports.getUsers = async (req, res) => {
-    try{
+    try {
         const users = await User.find().sort('name');
         res.send(users);
-    }catch(ex){
+    } catch (ex) {
         console.log(ex.message);
-        res.status(400).send(ex.message);    }
+        res.status(400).send(ex.message);
+    }
 }
 
 exports.postUser = async (req, res) => {
@@ -23,14 +24,14 @@ exports.postUser = async (req, res) => {
 
 exports.putUser = async (req, res) => {
     try {
-      const user = await User.findByIdAndUpdate(req.params.id, { name: req.body.name, age: req.body.age, email: req.body.email }, { new: true, runValidators: true }); 
-      console.log("The following object updated : ", user);
-      res.send(user);
+        const user = await User.findByIdAndUpdate(req.params.id, { name: req.body.name, age: req.body.age, email: req.body.email }, { new: true, runValidators: true });
+        console.log("The following object updated : ", user);
+        res.send(user);
     } catch (ex) {
-      console.log(ex.message);
-      res.status(400).send(ex.message);
+        console.log(ex.message);
+        res.status(400).send(ex.message);
     }
-  };
+};
 
 exports.deleteUser = async (req, res) => {
     try {
