@@ -56,4 +56,21 @@ async function getCourse(req, res) {
     }
 }
 
-module.exports = { getCourses, createCourse, updateCourse, deleteCourse, getCourse };
+async function getCourseByAttribute(req, res) {
+    try {
+        const attribute = req.params.attribute;
+        const value = req.params.value;
+
+        let query = {};
+        query[attribute] = value;
+
+        const course = await Course.findOne(query);
+        if (!course) return res.status(404).send("Course not found");
+        res.send(course);
+    } catch (ex) {
+        console.log(ex.message);
+        res.status(400).send(ex.message);
+    }
+};
+
+module.exports = { getCourses, createCourse, updateCourse, deleteCourse, getCourse, getCourseByAttribute};

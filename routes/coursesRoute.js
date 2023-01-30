@@ -12,4 +12,6 @@ router.delete('/:id', controller.deleteCourse);
 
 router.get('/:id', controller.getCourse);
 
+router.get('/attribute/:attribute/:value', controller.getCourseByAttribute);
+
 module.exports = router;

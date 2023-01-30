@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  age: { type: Number, required: true, min: 18 },
+  age: { type: Number, required: true},
   email: {
     type: String, required: true, set: v => v.toLowerCase(), unique: true
   }
@@ -10,11 +10,9 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function (next) {
   if (this.age < 18) {
-    const error = new Error('Age must be at least 18 years old');
-    next(error);
-  } else {
-    next();
+    console.log('Attention! You are under 18 years old!! Take care!!');
   }
+  next();
 });
 
 const User = mongoose.model('User', UserSchema);

@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('./db');
-const config = require('./config');
+const config = require('./config.env');
 const usersRoute = require('./routes/usersRoute');
 const coursesRoute = require('./routes/coursesRoute');
 
