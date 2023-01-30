@@ -1,29 +1,22 @@
-const mongoose = require('mongoose');
 const express = require('express');
-const users = require('./routes/usersRoute')
-const courses = require('./routes/coursesRoute')
+const mongoose = require('./db');
+const config = require('./config');
+const usersRoute = require('./routes/usersRoute');
+const coursesRoute = require('./routes/coursesRoute');
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use('/users', users);
-app.use('/courses', courses);
 
+app.use('/users', usersRoute);
+app.use('/courses', coursesRoute);
 
-try {
-    mongoose.set('strictQuery', false);
-} catch (e) {
-    console.log('ERROR!!');
-}
+mongoose(config);
 
-mongoose.connect('mongodb://0.0.0.0:27017/demo')
-    .then(() => console.log('Connected to MongoDB...'))
-    .catch(err => console.error('Could not connect to MongoDB...', err));
-
-const port = process.env.PORT || 8080;    
-app.listen(port, () => console.log(`Listening on port ${port}....`));
+app.listen(config.port, () => console.log(`Listening on port ${config.port}....`));
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+  res.send('Hello World!');
 });

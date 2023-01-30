@@ -1,8 +1,12 @@
 const Course = require('../models/courseModel');
 
 async function getCourses(req, res) {
-    const courses = await Course.find().sort('name');
-    res.send(courses);
+    try{
+        const courses = await Course.find().sort('name');
+        res.send(courses);
+    }catch(ex){
+        console.log(ex.message);
+        res.status(400).send(ex.message);    }
 }
 
 async function createCourse(req, res) {
@@ -13,6 +17,7 @@ async function createCourse(req, res) {
         res.send(course);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 
@@ -24,6 +29,7 @@ async function updateCourse(req, res) {
         res.send(course);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 
@@ -34,6 +40,7 @@ async function deleteCourse(req, res) {
         res.send(course);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 
@@ -44,6 +51,7 @@ async function getCourse(req, res) {
         res.send(course);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 

@@ -1,8 +1,12 @@
 const User = require('../models/userModel');
 
 exports.getUsers = async (req, res) => {
-    const users = await User.find().sort('name');
-    res.send(users);
+    try{
+        const users = await User.find().sort('name');
+        res.send(users);
+    }catch(ex){
+        console.log(ex.message);
+        res.status(400).send(ex.message);    }
 }
 
 exports.postUser = async (req, res) => {
@@ -13,19 +17,20 @@ exports.postUser = async (req, res) => {
         res.send(user);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 
 exports.putUser = async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, { name: req.body.name, age: req.body.age, email: req.body.email },
-            { new: true, runValidators: true }) 
-        console.log("The following object updated : ", user);
-        res.send(user);
+      const user = await User.findByIdAndUpdate(req.params.id, { name: req.body.name, age: req.body.age, email: req.body.email }, { new: true, runValidators: true }); 
+      console.log("The following object updated : ", user);
+      res.send(user);
     } catch (ex) {
-        console.log(ex.message);
+      console.log(ex.message);
+      res.status(400).send(ex.message);
     }
-}
+  };
 
 exports.deleteUser = async (req, res) => {
     try {
@@ -34,6 +39,7 @@ exports.deleteUser = async (req, res) => {
         res.send(user);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 
@@ -44,6 +50,7 @@ exports.getUser = async (req, res) => {
         res.send(user);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 
@@ -54,6 +61,7 @@ exports.getUserByEmail = async (req, res) => {
         res.send(user.name);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 };
 
@@ -66,6 +74,7 @@ exports.putUserByEmail = async (req, res) => {
         res.send(user);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 }
 
@@ -82,5 +91,6 @@ exports.getUserByAttribute = async (req, res) => {
         res.send(user);
     } catch (ex) {
         console.log(ex.message);
+        res.status(400).send(ex.message);
     }
 };
